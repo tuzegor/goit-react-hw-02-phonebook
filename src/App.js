@@ -10,13 +10,14 @@ class App extends Component {
     ],
     name: '',
     number: '',
+    filter: '',
   };
 
   formSubmit = event => {
     event.preventDefault();
     const { contacts, name, number } = this.state;
+
     const contact = { id: nanoid(), name, number };
-    console.log(contact);
     this.setState({ contacts: [contact, ...contacts] });
   };
 
@@ -24,8 +25,25 @@ class App extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
+  findName = event => {
+    this.setState({ filter: event.target.value });
+  };
+
+  showFilteredContacts = () => {
+    const { contacts, filter } = this.state;
+
+    const filteredContacts = contacts.filter(obj =>
+      obj.name.toLowerCase().includes(filter.toLowerCase()),
+    );
+    return filteredContacts;
+  };
+
+  deleteContact = () => {
+    const { contacts } = this.state;
+  };
+
   render() {
-    const { contacts, name, number } = this.state;
+    const { name, number, filter } = this.state;
     return (
       <div className="App">
         <form onSubmit={this.formSubmit}>
@@ -55,10 +73,15 @@ class App extends Component {
           </label>
           <button type="submit">Add contact</button>
         </form>
+        <label>
+          Find contacts by name
+          <input type="text" value={filter} onChange={this.findName} />
+        </label>
         <ul>
-          {contacts.map(contact => (
+          {this.showFilteredContacts().map(contact => (
             <li key={contact.id}>
               {contact.name}: {contact.number}
+              <button type="button">Delete</button>
             </li>
           ))}
         </ul>
