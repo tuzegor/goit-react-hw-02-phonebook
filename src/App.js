@@ -38,8 +38,10 @@ class App extends Component {
     return filteredContacts;
   };
 
-  deleteContact = () => {
+  deleteContact = id => {
     const { contacts } = this.state;
+
+    this.setState({ contacts: contacts.filter(obj => obj.id !== id) });
   };
 
   render() {
@@ -78,10 +80,12 @@ class App extends Component {
           <input type="text" value={filter} onChange={this.findName} />
         </label>
         <ul>
-          {this.showFilteredContacts().map(contact => (
-            <li key={contact.id}>
-              {contact.name}: {contact.number}
-              <button type="button">Delete</button>
+          {this.showFilteredContacts().map(({ id, name, number }) => (
+            <li key={id}>
+              {name}: {number}
+              <button type="button" onClick={() => this.deleteContact(id)}>
+                Delete
+              </button>
             </li>
           ))}
         </ul>
