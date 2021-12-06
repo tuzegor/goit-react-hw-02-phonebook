@@ -22,19 +22,16 @@ p {
   margin-bottom: 0;
 }
 
-img {
-  display: block;
-  max-width: 100%;
-  height: auto;
-}
-
 body {
   font-family: sans-serif;
-  background-color: #b5d4b9;
-  color: #1d3e4d;
+  background-color: #444639;
+  color: #e5d5bc;
+  font-size: 24px;
 }
 
 .App {
   text-align: center;
+  margin: 0 auto;
+
   padding: 20px;
 }

@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { nanoid } from 'nanoid';
+import ContactForm from './components/ContactForm/ContactForm';
+import Filter from './components/Filter/Filter';
+import ContactList from './components/ContactList/ContactList';
+
 class App extends Component {
   state = {
     contacts: [
@@ -8,21 +11,11 @@ class App extends Component {
       { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
-    name: '',
-    number: '',
     filter: '',
   };
-
-  formSubmit = event => {
-    event.preventDefault();
-    const { contacts, name, number } = this.state;
-
-    const contact = { id: nanoid(), name, number };
+  getContactFromForm = contact => {
+    const { contacts } = this.state;
     this.setState({ contacts: [contact, ...contacts] });
-  };
-
-  inputChange = event => {
-    this.setState({ [event.target.name]: event.target.value });
   };
 
   findName = event => {
@@ -45,50 +38,17 @@ class App extends Component {
   };
 
   render() {
-    const { name, number, filter } = this.state;
+    const { filter } = this.state;
     return (
       <div className="App">
-        <form onSubmit={this.formSubmit}>
-          <label>
-            Name
-            <input
-              type="text"
-              name="name"
-              value={name}
-              pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-              title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-              required
-              onChange={this.inputChange}
-            />
-          </label>
-          <label>
-            Number
-            <input
-              type="tel"
-              name="number"
-              value={number}
-              pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-              title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-              required
-              onChange={this.inputChange}
-            />
-          </label>
-          <button type="submit">Add contact</button>
-        </form>
-        <label>
-          Find contacts by name
-          <input type="text" value={filter} onChange={this.findName} />
-        </label>
-        <ul>
-          {this.showFilteredContacts().map(({ id, name, number }) => (
-            <li key={id}>
-              {name}: {number}
-              <button type="button" onClick={() => this.deleteContact(id)}>
-                Delete
-              </button>
-            </li>
-          ))}
-        </ul>
+        <h1>Phonebook</h1>
+        <ContactForm submitContact={this.getContactFromForm} />
+        <h2>Contacts</h2>
+        <Filter filter={filter} findName={this.findName} />
+        <ContactList
+          showFilteredContacts={this.showFilteredContacts}
+          deleteContact={this.deleteContact}
+        />
       </div>
     );
   }
