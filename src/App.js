@@ -15,7 +15,15 @@ class App extends Component {
   };
   getContactFromForm = contact => {
     const { contacts } = this.state;
-    this.setState({ contacts: [contact, ...contacts] });
+    if (
+      contacts.find(
+        obj => obj.name.toLowerCase() === contact.name.toLowerCase(),
+      )
+    ) {
+      alert('Such contact exists');
+    } else {
+      this.setState({ contacts: [contact, ...contacts] });
+    }
   };
 
   findName = event => {
@@ -41,9 +49,9 @@ class App extends Component {
     const { filter } = this.state;
     return (
       <div className="App">
-        <h1>Phonebook</h1>
+        <h1 className="title">Phonebook</h1>
         <ContactForm submitContact={this.getContactFromForm} />
-        <h2>Contacts</h2>
+        <h2 className="title">Contacts</h2>
         <Filter filter={filter} findName={this.findName} />
         <ContactList
           showFilteredContacts={this.showFilteredContacts}

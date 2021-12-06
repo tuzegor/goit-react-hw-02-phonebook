@@ -7,7 +7,9 @@ function ContactList({ showFilteredContacts, deleteContact }) {
     <ul className={style.contactsList}>
       {showFilteredContacts().map(({ id, name, number }) => (
         <li className={style.item} key={id}>
-          {name}: {number}
+          <span>
+            {name}: {number}
+          </span>
           <button
             className={style.deleteBtn}
             type="button"

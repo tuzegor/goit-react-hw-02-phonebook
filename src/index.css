@@ -35,3 +35,17 @@ body {
 
   padding: 20px;
 }
+
+.title {
+  padding: 20px;
+}
+input {
+  border-radius: 2px;
+  border: none;
+  padding: 0;
+  color: #444639;
+  font-size: 18px;
+}
+input:focus {
+  outline: 2px solid #c17f43;
+}

@@ -4,15 +4,17 @@ import style from './Filter.module.css';
 
 function Filter({ filter, findName }) {
   return (
-    <label className={style.title}>
-      Find contacts by name
-      <input
-        className={style.field}
-        type="text"
-        value={filter}
-        onChange={findName}
-      />
-    </label>
+    <div className={style.filter}>
+      <label className={style.item}>
+        <span>Find contacts by name</span>
+        <input
+          className={style.field}
+          type="text"
+          value={filter}
+          onChange={findName}
+        />
+      </label>
+    </div>
   );
 }
 
