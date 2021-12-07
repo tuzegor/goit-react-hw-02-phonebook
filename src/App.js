@@ -17,7 +17,8 @@ class App extends Component {
     const { contacts } = this.state;
     if (
       contacts.find(
-        obj => obj.name.toLowerCase() === contact.name.toLowerCase(),
+        сontactItem =>
+          сontactItem.name.toLowerCase() === contact.name.toLowerCase(),
       )
     ) {
       alert('Such contact exists');
@@ -33,8 +34,8 @@ class App extends Component {
   showFilteredContacts = () => {
     const { contacts, filter } = this.state;
 
-    const filteredContacts = contacts.filter(obj =>
-      obj.name.toLowerCase().includes(filter.toLowerCase()),
+    const filteredContacts = contacts.filter(contact =>
+      contact.name.toLowerCase().includes(filter.toLowerCase()),
     );
     return filteredContacts;
   };
